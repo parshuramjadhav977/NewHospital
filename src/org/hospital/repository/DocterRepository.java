@@ -15,18 +15,9 @@ public boolean isdocterPresent(String doctername)
 		stmt = conn.prepareStatement("select * from Docter where docname=?");
 		stmt.setString(1, doctername);
 		rs = stmt.executeQuery();
-		if(rs.next())
-		{
-			return true;
-			
-		}
-		else
-		{
-			return false;
-		}
+		return rs.next();
 	} 
 	catch (SQLException ex) {
-		System.out.println("Error is"+ex);
 		return false;
 	}
 	
@@ -42,18 +33,20 @@ public boolean isdocterPresent(String doctername)
 			stmt.setString(3, model.getDesgination());
 
 			int value = stmt.executeUpdate();
-			System.out.println(value);
 			
-			if (value > 0) {
+			if (value > 0) 
+			{
 				return true;
 
 			}
 
-			else {
+			else 
+			{
 				return false;
 			}
 
-		} catch (Exception ex) {
+		} catch (Exception ex) 
+		{
 			System.out.println("Error is" + ex);
 			return false;
 		}
@@ -67,7 +60,8 @@ public boolean isdocterPresent(String doctername)
 				Doctermodel model=null;
 				stmt = conn.prepareStatement("select * from Docter");
 				rs = stmt.executeQuery();
-				while (rs.next()) {
+				while (rs.next()) 
+				{
 					 model = new Doctermodel();
 					model.setDoctername(rs.getString(1));
 					model.setSpeciality(rs.getString(2));
