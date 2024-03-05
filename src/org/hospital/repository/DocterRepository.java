@@ -63,9 +63,10 @@ public boolean isdocterPresent(String doctername)
 				while (rs.next()) 
 				{
 					 model = new Doctermodel();
-					model.setDoctername(rs.getString(1));
-					model.setSpeciality(rs.getString(2));
-					model.setDesgination(rs.getString(3));
+					 model.setDocid(rs.getInt(1));
+					model.setDoctername(rs.getString(2));
+					model.setSpeciality(rs.getString(3));
+					model.setDesgination(rs.getString(4));
 					listdoc.add(model);
 				}
 				return listdoc.size() > 0 ? listdoc : null;
@@ -78,6 +79,10 @@ public boolean isdocterPresent(String doctername)
 			}
 
 		}
+		
+		
+		
+		
 		
 		
 		

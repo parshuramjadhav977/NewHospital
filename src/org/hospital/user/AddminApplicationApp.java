@@ -14,59 +14,64 @@ public class AddminApplicationApp {
 		DocterService dv =new DocterService();
 		
 		DocterRepository docRepo=new  DocterRepository();
+		Scanner xyz = new Scanner(System.in);
+		System.out.print("Enter Username for admin  ==> ");
+		String uName=xyz.nextLine();
 		
-		do
-		{
-			
-			System.out.println(" case 1: Add New Doctor /View /Search /Delete ");
-			System.out.println(" case 2: Add New Patient /View/Search/Delete");
-			System.out.println("Enter your choice");
-			Scanner xyz = new Scanner(System.in);
-			int choice = xyz.nextInt();
-			switch(choice)
+		System.out.print("Enter Password for admin  ==> ");
+		String uPass=xyz.nextLine();
+		
+		
+		if (uName.equals("admin") && uPass.equals("Pass1234")){
+			do
 			{
+				
+				System.out.println(" case 1: Add New Doctor /View /Search /Delete ");
+				System.out.println(" case 2: Add New Patient /View/Search/Delete");
+				System.out.println("Enter your choice");
+				
+				int choice = xyz.nextInt();
+				switch(choice)
+				{
+				
+				case 1:
+					xyz.nextLine();
+					System.out.println("enter Doctername speality Degination");
+					String docterName=xyz.nextLine();
+					String speality=xyz.nextLine();
+					String Degination=xyz.nextLine();
+					Doctermodel model =new Doctermodel();
+					model.setDoctername(docterName);
+					model.setSpeciality(speality);
+					model.setDesgination(Degination);
+					int result =dv.addDocter(model);
+					System.out.println((result == 1) ? " Docter added sucessfully.": (result == -1) ? "Docter already present" : " some problem is there...");
+					break;
+				
+				case 2:
+					
+					System.out.println("All Doctor list");
+					List<Doctermodel> list=dv.getAllExams();
+					for(Doctermodel o:list) {
+						System.out.println(o.getDocid()+"\t"+ o.getDoctername()+"\t"+o.getSpeciality()+"\t"+o.getDesgination());
+					}
+					break;
+					
+					
 			
-			case 1:
-				xyz.nextLine();
-				System.out.println("enter Doctername speality Degination");
-				String docterName=xyz.nextLine();
-				String speality=xyz.nextLine();
-				String Degination=xyz.nextLine();
-				Doctermodel model =new Doctermodel();
-				model.setDoctername(docterName);
-				model.setSpeciality(speality);
-				model.setDesgination(Degination);
-				
-				int result =dv.addDocter(model);
-				
-//				if(result==1)
-//				{
-//					System.out.println("Docter added sucessfully");
-//				}
-//				else
-//				{
-//					System.out.println("some problem is there ");
-//				}
-				
-
-				System.out.println((result == 1) ? " Docter added sucessfully.": (result == -1) ? "Docter already present" : " some problem is there...");
-				break;
+					
+					default:
+						System.out.println("worng choice");
 			
-			case 2:
-				System.out.println("All Doctor list");
-				List<Doctermodel> list=dv.getAllExams();
-				for(Doctermodel o:list) {
-					System.out.println(o.getDoctername()+"\t"+o.getSpeciality()+"\t"+o.getDesgination());
 				}
-				break;
 				
-				default:
-					System.out.println("worng choice");
-		
 			}
-			
+			while(true);	
+		}else {
+			System.out.println("Credential do not match !!! ");
 		}
-		while(true);
+		
+		
 		
 
 	}
