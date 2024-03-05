@@ -1,20 +1,49 @@
 package org.hospital.repository;
 
+import java.sql.SQLException;
 import java.util.*;
 
 
 import org.hospital.model.Doctermodel;
 
-public class DocterRepository extends DBConfig {
 
+public class DocterRepository extends DBConfig {
+	List<Doctermodel> listdoc = new ArrayList<Doctermodel>();
+public boolean isdocterPresent(String doctername)
+{
+	try {
+		stmt = conn.prepareStatement("select * from Docter where docname=?");
+		stmt.setString(1, doctername);
+		rs = stmt.executeQuery();
+		if(rs.next())
+		{
+			return true;
+			
+		}
+		else
+		{
+			return false;
+		}
+	} 
+	catch (SQLException ex) {
+		System.out.println("Error is"+ex);
+		return false;
+	}
+	
+	
+	
+}
 	public boolean isAddDocter(Doctermodel model) {
 		try {
+			
 			stmt = conn.prepareStatement("insert into docter values('0',?,?,?)");
 			stmt.setString(1, model.getDoctername());
 			stmt.setString(2, model.getSpeciality());
 			stmt.setString(3, model.getDesgination());
 
 			int value = stmt.executeUpdate();
+			System.out.println(value);
+			
 			if (value > 0) {
 				return true;
 
@@ -31,7 +60,6 @@ public class DocterRepository extends DBConfig {
 
 	}
 
-	List<Doctermodel> listdoc = new ArrayList<Doctermodel>();
 		
 		
 		public List<Doctermodel> getAlldocter() {

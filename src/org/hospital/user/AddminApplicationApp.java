@@ -12,7 +12,7 @@ public class AddminApplicationApp {
 
 	public static void main(String[] args)throws Exception {
 		DocterService dv =new DocterService();
-		Doctermodel model =new Doctermodel();
+		
 		DocterRepository docRepo=new  DocterRepository();
 		
 		do
@@ -32,21 +32,26 @@ public class AddminApplicationApp {
 				String docterName=xyz.nextLine();
 				String speality=xyz.nextLine();
 				String Degination=xyz.nextLine();
+				Doctermodel model =new Doctermodel();
 				model.setDoctername(docterName);
 				model.setSpeciality(speality);
 				model.setDesgination(Degination);
 				
 				int result =dv.addDocter(model);
 				
-				if(result==1)
-				{
-					System.out.println("Docter added sucessfully");
-				}
-				else
-				{
-					System.out.println("some problem is there ");
-				}
+//				if(result==1)
+//				{
+//					System.out.println("Docter added sucessfully");
+//				}
+//				else
+//				{
+//					System.out.println("some problem is there ");
+//				}
+				
+
+				System.out.println((result == 1) ? " Docter added sucessfully.": (result == -1) ? "Docter already present" : " some problem is there...");
 				break;
+			
 			case 2:
 				System.out.println("All Doctor list");
 				List<Doctermodel> list=dv.getAllExams();

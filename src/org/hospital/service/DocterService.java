@@ -17,9 +17,9 @@ public class DocterService
 		return docRepo.isAddDocter(model)?1:0;
 	}
 
-//	public int isAddDocter(Doctermodel model) {
-//		return (docRepo.isdocterPresent(model.getDoctername()+"\t" + model.getSpeciality()+"\t"+model.getDesgination()) ? -1 : (docRepo.isAddDocter(model)) ? 1 : 0;
-//	}
+	public int isAddDocter(Doctermodel model) {
+		return (docRepo.isdocterPresent(model.getDoctername())) ? -1 : (docRepo.isAddDocter(model)) ? 1 : 0;
+}
 
 	public List<Doctermodel> getAllExams() {
 		return docRepo.getAlldocter();
