@@ -2,6 +2,7 @@ package org.hospital.repository;
 
 import java.sql.*;
 
+
 public class DBConfig {
 
 	protected Connection conn;
