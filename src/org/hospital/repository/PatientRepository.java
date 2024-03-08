@@ -42,7 +42,7 @@ public class PatientRepository extends DBConfig {
     
     public List<PatientModel> getAllPatients() {
 		try {
-			stmt = conn.prepareStatement("select * from Docter");
+			stmt = conn.prepareStatement("select * from patient");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				patient.setPtid(rs.getInt(1));
@@ -75,6 +75,55 @@ public class PatientRepository extends DBConfig {
         }
     }
 
-	
+    public List<PatientModel> searchPatientsByName(String name) {
+        List<PatientModel> searchResults = new ArrayList<PatientModel>();
+        try {
+            stmt = conn.prepareStatement("SELECT * FROM patient WHERE ptName=?");
+            stmt.setString(1,name );
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+//                PatientModel patient = new PatientModel();
+                patient.setPtName(rs.getString("ptName"));
+                patient.setPtid(rs.getInt("ptid"));
+                patient.setAge(rs.getInt("age"));
+                patient.setGender(rs.getString("gender"));
+                patient.setContact(rs.getString("contact"));
+                patient.setAddress(rs.getString("address"));
+                patient.setOpdDate(rs.getDate("opdDate"));
+                patient.setDocid(rs.getInt("docid"));
+                patient.setFees(rs.getInt("fess"));
+                patient.setAppointmentDate(rs.getDate("appoinmentdate"));
+                searchResults.add(patient);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error searching patients: " + ex.getMessage());
+        } finally {
+            closeResources();
+        }
+        return searchResults;
+    }
+
+
+
+
+    
+    
+    
+    public boolean deletePatientById(int patientId) {
+        try {
+            stmt = conn.prepareStatement("DELETE FROM patient WHERE ptid = ?");
+            stmt.setInt(1, patientId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException ex) {
+            System.out.println("Error deleting patient: " + ex.getMessage());
+            return false;
+        } finally {
+            closeResources();
+        }
+    }
+
+    
+    
 }
 

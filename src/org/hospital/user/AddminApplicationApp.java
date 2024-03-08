@@ -44,20 +44,22 @@ public class AddminApplicationApp {
 				System.out.println(" case 2: Add New Patient /View/Search/Delete");
 				
 				System.out.println("Enter your choice");
-				
+				boolean s=true;
 				int choice = xyz.nextInt();
 				switch(choice)
 				{
 				
 				case 1:
 					
-					do {
+					while(s) {
 						System.out.println("case 1 ADD new Docter");
 						System.out.println("case 2 View All Docter List");
 						System.out.println("Case 3 Search Docter");
 						System.out.println("case 4 Delete Docter By ID");
 						
+						System.out.println("case: 0 exit");
 						System.out.println("Enter your choice");
+					
 						choice=xyz.nextInt();
 						switch(choice)
 						{
@@ -80,11 +82,24 @@ public class AddminApplicationApp {
 						
 						case 2:
 							
+//							System.out.println("All Doctor list");
+//							List<Doctermodel> list=dv.getAlldocter();
+//							for(Doctermodel o:list) {
+//								System.out.println(o.getDocid()+"\t"+ o.getDoctername()+"\t"+o.getSpeciality()+"\t"+o.getDesgination());
+//							}
+//							
+							
 							System.out.println("All Doctor list");
-							List<Doctermodel> list=dv.getAllExams();
-							for(Doctermodel o:list) {
-								System.out.println(o.getDocid()+"\t"+ o.getDoctername()+"\t"+o.getSpeciality()+"\t"+o.getDesgination());
+							List<Doctermodel> list = dv.getAlldocter();
+							Set<Integer> seenIds = new HashSet<>(); // To keep track of seen doctor IDs
+							for (Doctermodel o : list) {
+							    // Check if the ID is already seen, if not, print and add to seenIds
+							    if (!seenIds.contains(o.getDocid())) {
+							        System.out.println(o.getDocid() + "\t" + o.getDoctername() + "\t" + o.getSpeciality() + "\t" + o.getDesgination());
+							        seenIds.add(o.getDocid());
+							    }
 							}
+
 							break;
 							
 						case 3:
@@ -94,10 +109,13 @@ public class AddminApplicationApp {
 						    Doctermodel searchedDoctor = docRepo.searchDoctor(searchName);
 						    if (searchedDoctor != null) {
 						        System.out.println("Doctor found:");
-						        System.out.println("ID: " + searchedDoctor.getDocid());
 						        System.out.println("Name: " + searchedDoctor.getDoctername());
+
+						        System.out.println("ID: " + searchedDoctor.getDocid());
 						        System.out.println("Speciality: " + searchedDoctor.getSpeciality());
 						        System.out.println("Designation: " + searchedDoctor.getDesgination());
+						        
+						        
 						    } else {
 						        System.out.println("Doctor not found.");
 						    }
@@ -112,28 +130,38 @@ public class AddminApplicationApp {
 						    } else {
 						        System.out.println("Failed to delete doctor. Doctor may not exist.");
 						    }
+							
+							
+
 						    break;
+						case 0:
+							s=false;
+							break;
 
 						default:
 						System.out.println("Wrong choice");
 						}
 					}
-					while(true);
+					
 				
 				
 				case 2:
 
-				do
+				while(s)
 				{
 					System.out.println("case 1 ADD new patient");
 					System.out.println("case 2 View All patient List");
 					System.out.println("Case 3 Search patient by name");
 					System.out.println("case 4 Delete patient By ID");
+					System.out.println("case 0 Exist ");
 					
 					System.out.println("Enter your choice");
 					choice=xyz.nextInt();
+			        PatientModel patient = new PatientModel();
+
 					switch(choice)
 					{ 
+
 
 					case 1:
 						
@@ -171,7 +199,6 @@ public class AddminApplicationApp {
 				        String appointmentDateStr = xyz.nextLine();
 				        java.sql.Date appointmentDate = java.sql.Date.valueOf(appointmentDateStr);
 				       
-				        PatientModel patient = new PatientModel();
 
 				        patient.setPtName(ptName);
 				        patient.setAge(age);
@@ -193,13 +220,80 @@ public class AddminApplicationApp {
 					
 					break;
 					case 2:
-					xyz.nextLine();
-					System.out.println("write your next logic view search delete\n");
+					    System.out.println("All Patients List:");
+					    List<PatientModel> patien = patientService.getAllPatients();
+					    if (patien != null && !patien.isEmpty()) {
+					        for (PatientModel patient1 : patien) {
+					            System.out.println("Patient ID: " + patient1.getPtid());
+					            System.out.println("Name: " + patient1.getPtName());
+					            System.out.println("Age: " + patient1.getAge());
+					            System.out.println("Gender: " + patient1.getGender());
+					            System.out.println("Contact: " + patient1.getContact());
+					            System.out.println("Address: " + patient1.getAddress());
+					            System.out.println("OPD Date: " + patient1.getOpdDate());
+					            System.out.println("Doctor ID: " + patient1.getDocid());
+					            System.out.println("Fees: " + patient1.getFees());
+					            System.out.println("Appointment Date: " + patient1.getAppointmentDate());
+					            System.out.println("------------------------------------");
+					        }
+					    } else {
+					        System.out.println("No patients found.");
+					    }
+					    break;
+					    
+					case 3:
+					    xyz.nextLine(); // Consume newline
+					    System.out.println("Enter the name of the patient to search:");
+					    String searchName = xyz.nextLine(); // Read the name of the patient to search for
+					    List<PatientModel> searchResults = patientService.searchPatientsByName(searchName); // Call the service method to search for patients by name
+					    if (searchResults != null && !searchResults.isEmpty()) { // If search results are not empty
+					        System.out.println("Search Results:");
+					        for (PatientModel patient1 : searchResults) { // Iterate over each patient in the search results
+					            // Print details of each patient
+					            System.out.println("Patient ID: " + patient1.getPtid());
+					            System.out.println("Name: " + patient1.getPtName());
+					            System.out.println("Age: " + patient1.getAge());
+					            System.out.println("Gender: " + patient1.getGender());
+					            System.out.println("Contact: " + patient1.getContact());
+					            System.out.println("Address: " + patient1.getAddress());
+					            System.out.println("OPD Date: " + patient1.getOpdDate());
+					            System.out.println("Doctor ID: " + patient1.getDocid());
+					            System.out.println("Fees: " + patient1.getFees());
+					            System.out.println("Appointment Date: " + patient1.getAppointmentDate());
+					            System.out.println("------------------------------------");
+					            
+					            System.out.println("patients found ");
+					        }
+					    } else {
+					        System.out.println("No patients found with the given name."); // Print message if no patients found
+					    }
+					    break;
 
-					break;
+
+					    
+		
+					case 4:
+						
+						xyz.nextLine();
+
+					    System.out.print("Enter patient ID to delete: ");
+					    int deleteId = xyz.nextInt();
+					    boolean isDeleted = patientService.deletePatientById(deleteId);
+					    if (isDeleted) {
+					        System.out.println("Patient with ID " + deleteId + " deleted successfully.");
+					    } else {
+					        System.out.println("Failed to delete patient with ID " + deleteId + ".");
+					    }
+					    break;
+						
+					    
+					   
+					case 0:
+						s=false;
+						break;
 					default:
 					}
-				}while (true);
+				}
 				
 				
 					

@@ -20,6 +20,16 @@ public class PatientService {
     public List<PatientModel> getAllPatients() {
         return patientRepository.getAllPatients();
     }
+   
+    
+    public List<PatientModel> searchPatientsByName(String name) {
+        // Call the corresponding method in the PatientRepository to search for patients by name
+        return patientRepository.searchPatientsByName(name);
+    }
+
+    public boolean deletePatientById(int patientId) {
+        return patientRepository.deletePatientById(patientId);
+    }
 
     
 }

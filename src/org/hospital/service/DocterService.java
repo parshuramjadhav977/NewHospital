@@ -18,7 +18,7 @@ public class DocterService
 
 
 
-	public List<Doctermodel> getAllExams()
+	public List<Doctermodel> getAlldocter()
 	{
 		return docRepo.getAlldocter();
 
