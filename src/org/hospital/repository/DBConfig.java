@@ -2,6 +2,9 @@ package org.hospital.repository;
 
 import java.sql.*;
 
+import org.hosspital.helper.PathHelper;
+
+
 
 public class DBConfig {
 
@@ -11,17 +14,15 @@ public class DBConfig {
 	
 	public DBConfig()
 	{
-		try 
-		{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital","root","root");
-			
-		} 
-		
-		catch (Exception ex) 
-		{
-			System.out.println("Error is"+ex);
+		try {
+			PathHelper phelp=new PathHelper();
+			Class.forName(PathHelper.p.getProperty("driver"));
+			conn = DriverManager.getConnection(PathHelper.p.getProperty("url"),PathHelper.p.getProperty("user"),PathHelper.p.getProperty("pass"));
+
+		} catch (Exception ex) {
+			System.out.println(" Error is " + ex);
 		}
 	}
+
 	
 }
