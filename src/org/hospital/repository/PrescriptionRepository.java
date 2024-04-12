@@ -9,15 +9,13 @@ public class PrescriptionRepository extends DBConfig {
 
     public void allocatePrescriptionToPatient(PrescriptionModel prescription) {
         try {
-            // Prepare the SQL statement to insert the prescription
-            String query = "INSERT INTO Prescriptions (Prescription_id, Prescription_details, ptid, docid) VALUES ('0', ?, ?, ?)";
+            String query = "insert into Prescriptions (Prescription_id, Prescription_details, ptid, docid) values ('0', ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(query);
 //            pstmt.setInt(1, prescription.getPrescriptionId());
             pstmt.setString(1, prescription.getPrescriptionDetails());
             pstmt.setInt(2, prescription.getPtid());
             pstmt.setInt(3, prescription.getDocid());
             
-            // Execute the SQL statement
             pstmt.executeUpdate();
             
             System.out.println("Prescription allocated successfully.");
@@ -29,8 +27,9 @@ public class PrescriptionRepository extends DBConfig {
     }
 
 	private void closeResources() {
-		// TODO Auto-generated method stub
 		
 	}
+	
+	
 }
 

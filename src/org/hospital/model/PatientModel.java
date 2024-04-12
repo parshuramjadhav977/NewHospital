@@ -27,9 +27,9 @@ public class PatientModel {
     public enum Category {
         OPD, IPD;
 
-		public boolean equalsIgnoreCase(String string) {
-			// TODO Auto-generated method stub
-			return false;
+	public boolean equalsIgnoreCase(String string)
+	{
+		return false;
 		}
     }
 
@@ -135,7 +135,11 @@ public class PatientModel {
                "Category: " + category;
     }
 
-	
+    public String toString1() {
+        return String.format("| %-5d | %-14s | %-3d | %-6s | %-11s | %-15s | %-10s | %-6d | %-4.2f | %-15s | %-8s |",
+                ptid, ptName, age, gender, contact, address, opdDate.toString(), docid, fess, appointmentDate.toString(), category);
+    }
+
 	
 
 }

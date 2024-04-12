@@ -1,6 +1,5 @@
 package org.hospital.model;
 
-//PrescriptionModel.java
 
 public class PrescriptionModel {
  private int prescriptionId;
@@ -8,7 +7,6 @@ public class PrescriptionModel {
  private int ptid;
  private int docid;
 
- // Getters and setters
 
  public int getPrescriptionId() {
      return prescriptionId;
@@ -44,6 +42,6 @@ public class PrescriptionModel {
 
  @Override
  public String toString() {
-     return "Prescription ID: " + prescriptionId + ", Prescription Details: " + prescriptionDetails;
+     return "Prescription ID: " + prescriptionId + "Prescription Details:" + prescriptionDetails;
  }
 }

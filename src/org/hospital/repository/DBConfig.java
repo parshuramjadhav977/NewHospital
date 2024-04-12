@@ -3,11 +3,8 @@ package org.hospital.repository;
 import java.sql.*;
 
 import org.hosspital.helper.PathHelper;
-
-
-
-public class DBConfig {
-
+public class DBConfig 
+{ 	
 	protected Connection conn;
 	protected PreparedStatement stmt;
 	protected ResultSet rs;
@@ -15,12 +12,14 @@ public class DBConfig {
 	public DBConfig()
 	{
 		try {
-			PathHelper phelp=new PathHelper();
-			Class.forName(PathHelper.p.getProperty("driver"));
-			conn = DriverManager.getConnection(PathHelper.p.getProperty("url"),PathHelper.p.getProperty("user"),PathHelper.p.getProperty("pass"));
+				PathHelper phelp=new PathHelper();
+				Class.forName(PathHelper.p.getProperty("driver"));
+				conn = DriverManager.getConnection(PathHelper.p.getProperty("url"),PathHelper.p.getProperty("user"),PathHelper.p.getProperty("pass"));
 
-		} catch (Exception ex) {
-			System.out.println(" Error is " + ex);
+			} 	
+		catch (Exception ex)
+		{
+				System.out.println(" Error is " + ex);
 		}
 	}
 

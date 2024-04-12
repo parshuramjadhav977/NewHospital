@@ -13,9 +13,7 @@ public class AllocatePatientRepository extends DBConfig {
     public List<AllocatePatientModel> getAllAllocatedPatients() {
         List<AllocatePatientModel> allocatedPatients = new ArrayList<>();
         try {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT p.ptid, p.ptName, p.docid, d.docname " +
-                                                             "FROM patient p " +
-                                                             "INNER JOIN docter d ON p.docid = d.docid");
+            PreparedStatement pstmt = conn.prepareStatement("select p.ptid, p.ptName, p.docid, d.docname " +"FROM patient p " +"inner join docter d on p.docid = d.docid");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -35,7 +33,6 @@ public class AllocatePatientRepository extends DBConfig {
     }
 
     private void closeResources() {
-        // Close database resources
         try {
             if (rs != null) {
                 rs.close();

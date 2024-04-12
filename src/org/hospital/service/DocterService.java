@@ -1,9 +1,7 @@
 package org.hospital.service;
 
 import java.util.List;
-
 import org.hospital.model.Doctermodel;
-
 import org.hospital.repository.DocterRepository;
 
 public class DocterService 
@@ -24,11 +22,15 @@ public class DocterService
 
 	}
 	
-	public Doctermodel searchDoctor(String doctorName) {
+	
+	public Doctermodel searchDoctor(String doctorName) 
+	{
         return docRepo.searchDoctor(doctorName);
     }
 
-	public boolean deleteDoctor(int doctorId) {
+	
+	public boolean deleteDoctor(int doctorId)
+	{
 	    return docRepo.deleteDoctor(doctorId);
 	}
 
